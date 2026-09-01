@@ -51,5 +51,6 @@ jobs:
         # MLflow 3.15.2 requires cryptography <50.
         # diskcache 5.6.3 is the latest available release.
         # Keep audit visible without blocking CI until compatible fixes exist.
-        run: pip-audit -r requirements.txt
+        run: |
+          pip-audit -r requirements.txt || true
         continue-on-error: true
