@@ -46,7 +46,8 @@ data "aws_iam_policy_document" "github_actions_assume_role" {
       variable = "token.actions.githubusercontent.com:sub"
 
       values = [
-        "repo:Lightning51/production-mlops-platform:*"
+        "repo:Lightning51/production-mlops-platform:*",
+        "repo:Lightning51@*/production-mlops-platform@*:*"
       ]
     }
   }
