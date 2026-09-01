@@ -60,6 +60,11 @@ logs/
 *.pkl
 *.pickle
 *.joblib
+# Exception: production model files in ml/models/ must be tracked in git
+# so the Docker build on CI can copy them into the image.
+!ml/models/*.joblib
+!ml/models/*.pkl
+!ml/models/*.pickle
 
 # ============================================================
 # MLflow
@@ -83,8 +88,10 @@ mlflow.db-wal
 
 # ============================================================
 # Trained ML models
+# NOTE: ml/models/ is intentionally tracked in git.
+# The model file is small (< 1 MB) and needed at Docker build time.
+# Use DVC only if models grow large enough to warrant it.
 # ============================================================
-ml/models/
 
 # ============================================================
 # Generated datasets / temporary ML data
@@ -138,5 +145,3 @@ dist/
 # AWS CLI local installation
 aws/
 awscliv2.zip
-# AWS CLI local installation
-aws/
