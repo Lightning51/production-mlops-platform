@@ -26,6 +26,15 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v5
 
+      - name: Debug GitHub OIDC claims
+        env:
+          ACTIONS_ID_TOKEN_REQUEST_URL: ${{ env.ACTIONS_ID_TOKEN_REQUEST_URL }}
+          ACTIONS_ID_TOKEN_REQUEST_TOKEN: ${{ env.ACTIONS_ID_TOKEN_REQUEST_TOKEN }}
+        run: |
+          TOKEN=$(curl -sS \
+            -H "Authorization: bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" \
+            "${ACTIONS_ID_TOKEN_REQUEST_URL}&audience=sts.amazonaws.com" \
+            | python -c 'import json,sys; print(json.load(sys.stdin)["value"])')
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v5
