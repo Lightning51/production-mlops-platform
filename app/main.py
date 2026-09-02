@@ -17,7 +17,7 @@ configure_logging()
 
 app = FastAPI(
     title=settings.app_name,
-    description="Production-grade ML inference API",
+    description="Production-grade ML inference API - CI-CD verified",
     version="1.0.0",
 )
 
