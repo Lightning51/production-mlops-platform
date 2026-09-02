@@ -100,6 +100,21 @@ module "alb" {
   certificate_arn = module.acm.certificate_arn
 }
 
+module "monitoring" {
+  source = "../../modules/monitoring"
+
+  name_prefix = "${var.project_name}-${var.environment}"
+
+  aws_region     = var.aws_region
+  aws_account_id = data.aws_caller_identity.current.account_id
+
+  ecs_cluster_name = module.ecs.cluster_name
+  ecs_service_name = module.ecs.service_name
+
+  alb_arn          = module.alb.alb_arn
+  target_group_arn = module.alb.target_group_arn
+}
+
 module "acm" {
   source = "../../modules/acm"
 

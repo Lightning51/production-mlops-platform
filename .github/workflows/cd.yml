@@ -100,7 +100,7 @@ jobs:
         with:
           task-definition: task-definition.json
           container-name: ${{ env.CONTAINER_NAME }}
-          image: 664267706249.dkr.ecr.ap-south-1.amazonaws.com/production-mlops-platform:circuit-breaker-test-invalid
+          image: ${{ steps.build-image.outputs.image }}
       - name: Deploy ECS task definition
         uses: aws-actions/amazon-ecs-deploy-task-definition@v2
         with:
